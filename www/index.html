@@ -9,13 +9,27 @@
 <body>
 
 <div class="container">
-    <h1>📝 My Notes</h1>
 
-    <input type="text" id="noteInput" placeholder="Write a note...">
+    <div class="top-bar">
+        <h1>📝 My Notes</h1>
+        <button id="darkBtn" onclick="toggleDarkMode()">🌙</button>
+    </div>
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Search notes..."
+        onkeyup="displayNotes()">
+
+    <input
+        type="text"
+        id="noteInput"
+        placeholder="Write a note...">
 
     <button onclick="addNote()">Add Note</button>
 
     <ul id="notesList"></ul>
+
 </div>
 
 <script src="script.js"></script>

@@ -1,24 +1,46 @@
 let notes = JSON.parse(localStorage.getItem("notes")) || [];
 
+let darkMode = localStorage.getItem("darkMode") === "true";
+
+if (darkMode) {
+    document.body.classList.add("dark");
+}
+
 function saveNotes() {
     localStorage.setItem("notes", JSON.stringify(notes));
 }
 
+function toggleDarkMode() {
+    document.body.classList.toggle("dark");
+    localStorage.setItem(
+        "darkMode",
+        document.body.classList.contains("dark")
+    );
+}
+
 function displayNotes() {
     const notesList = document.getElementById("notesList");
+    const search = document.getElementById("searchInput").value.toLowerCase();
+
     notesList.innerHTML = "";
 
     notes.forEach((note, index) => {
+
+        if (!note.text.toLowerCase().includes(search)) return;
+
         const li = document.createElement("li");
 
         li.innerHTML = `
-            <div style="flex:1">
-                <strong>${note.text}</strong><br>
-                <small>${note.date}</small>
-            </div>
+        <div style="flex:1">
+            <strong>${note.text}</strong><br>
+            <small>${note.date}</small>
+        </div>
 
-            <button onclick="editNote(${index})">✏️</button>
-            <button class="delete" onclick="deleteNote(${index})">Delete</button>
+        <button onclick="editNote(${index})">✏️</button>
+
+        <button class="delete" onclick="deleteNote(${index})">
+        🗑
+        </button>
         `;
 
         notesList.appendChild(li);
@@ -26,11 +48,12 @@ function displayNotes() {
 }
 
 function addNote() {
+
     const input = document.getElementById("noteInput");
 
     if (input.value.trim() === "") return;
 
-    notes.push({
+    notes.unshift({
         text: input.value,
         date: new Date().toLocaleString()
     });
@@ -38,26 +61,40 @@ function addNote() {
     input.value = "";
 
     saveNotes();
+
     displayNotes();
 }
 
 function editNote(index) {
-    let newText = prompt("Edit your note:", notes[index].text);
 
-    if (newText !== null && newText.trim() !== "") {
-        notes[index].text = newText;
-        notes[index].date = "Edited: " + new Date().toLocaleString();
+    const text = prompt("Edit note", notes[index].text);
+
+    if (text !== null && text.trim() !== "") {
+
+        notes[index].text = text;
+
+        notes[index].date =
+            "Edited • " + new Date().toLocaleString();
 
         saveNotes();
+
         displayNotes();
     }
+
 }
 
 function deleteNote(index) {
-    notes.splice(index,1);
 
-    saveNotes();
-    displayNotes();
+    if (confirm("Delete this note?")) {
+
+        notes.splice(index, 1);
+
+        saveNotes();
+
+        displayNotes();
+
+    }
+
 }
 
 displayNotes();
