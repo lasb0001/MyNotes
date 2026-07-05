@@ -3,8 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Notes</title>
+<title>My Notes V5</title>
+
 <link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
 </head>
 
 <body>
@@ -13,43 +18,101 @@
 
 <header>
 
+<div class="logo">
+
 <h1>📝 My Notes</h1>
 
-<button class="darkBtn" onclick="toggleDarkMode()">
+<p>Your personal notebook</p>
+
+</div>
+
+<div class="topButtons">
+
+<button id="themeBtn" onclick="toggleDarkMode()">
+
 🌙
+
 </button>
+
+<button id="settingsBtn">
+
+⚙️
+
+</button>
+
+</div>
 
 </header>
 
 <input
-id="searchInput"
 type="text"
+id="searchInput"
 placeholder="🔍 Search notes..."
 onkeyup="displayNotes()">
+
+<div class="tools">
 
 <select id="labelColor">
 
 <option value="#ffffff">⚪ White</option>
+
 <option value="#fff59d">🟡 Yellow</option>
-<option value="#a5d6a7">🟢 Green</option>
-<option value="#90caf9">🔵 Blue</option>
+
 <option value="#ef9a9a">🔴 Red</option>
+
+<option value="#90caf9">🔵 Blue</option>
+
+<option value="#a5d6a7">🟢 Green</option>
+
 <option value="#ce93d8">🟣 Purple</option>
 
 </select>
 
-<input
+</div>
+
+<textarea
 id="noteInput"
-type="text"
-placeholder="Write your note...">
+rows="4"
+placeholder="Write your thoughts..."></textarea>
 
-<button class="addBtn" onclick="addNote()">
+<button class="addBtn"
+onclick="addNote()">
 
-➕ Add Note
+<i class="fa-solid fa-plus"></i>
+
+Add Note
 
 </button>
 
 <ul id="notesList"></ul>
+
+</div>
+
+<div id="settingsModal" class="modal">
+
+<div class="modal-content">
+
+<h2>⚙️ Settings</h2>
+
+<button id="pinBtn">
+
+🔒 Create / Change PIN
+
+</button>
+
+<button id="aboutBtn">
+
+ℹ️ About My Notes
+
+</button>
+
+<button id="closeSettings">
+
+❌ Close
+
+</button>
+
+</div>
 
 </div>
 
