@@ -1,136 +1,86 @@
 let notes = JSON.parse(localStorage.getItem("notes")) || [];
 
-const list = document.getElementById("notesList");
-
-function saveNotes(){
-    localStorage.setItem("notes",JSON.stringify(notes));
+function saveNotes() {
+    localStorage.setItem("notes", JSON.stringify(notes));
 }
 
-function toggleDarkMode(){
-
+function toggleDarkMode() {
     document.body.classList.toggle("dark");
-
     localStorage.setItem(
         "darkMode",
         document.body.classList.contains("dark")
     );
-
 }
 
-if(localStorage.getItem("darkMode")=="true"){
+if (localStorage.getItem("darkMode") === "true") {
     document.body.classList.add("dark");
 }
 
-function addNote(){
+function addNote() {
+    const input = document.getElementById("noteInput");
+    const color = document.getElementById("labelColor").value;
 
-    const input=document.getElementById("noteInput");
-
-    if(input.value.trim()=="") return;
-
-    const color=document.getElementById("labelColor").value;
+    if (input.value.trim() === "") {
+        alert("Please enter a note.");
+        return;
+    }
 
     notes.unshift({
-
-        text:input.value,
-
-        color:color,
-
-        date:new Date().toLocaleString()
-
+        text: input.value,
+        color: color,
+        date: new Date().toLocaleString()
     });
 
-    input.value="";
+    input.value = "";
 
     saveNotes();
-
     displayNotes();
-
 }
 
-function displayNotes(){
+function displayNotes() {
+    const list = document.getElementById("notesList");
+    const search = document.getElementById("searchInput").value.toLowerCase();
 
-    list.innerHTML="";
+    list.innerHTML = "";
 
-    const search=document
-    .getElementById("searchInput")
-    .value
-    .toLowerCase();
+    notes.forEach((note, index) => {
 
-    notes.forEach((note,index)=>{
+        if (!note.text.toLowerCase().includes(search)) return;
 
-        if(!note.text.toLowerCase().includes(search))
-        return;
+        list.innerHTML += `
+        <li style="background:${note.color}">
+            <div class="note-text">
+                <b>${note.text}</b><br>
+                <small>${note.date}</small>
+            </div>
 
-        list.innerHTML+=`
-
-<li style="background:${note.color}">
-
-<div class="note-text">
-
-<b>${note.text}</b><br>
-
-<small>${note.date}</small>
-
-</div>
-
-<div class="actions">
-
-<button class="edit"
-onclick="editNote(${index})">
-
-✏️
-
-</button>
-
-<button class="delete"
-onclick="deleteNote(${index})">
-
-🗑️
-
-</button>
-
-</div>
-
-</li>
-
-`;
-
+            <div class="actions">
+                <button class="edit" onclick="editNote(${index})">✏️</button>
+                <button class="delete" onclick="deleteNote(${index})">🗑️</button>
+            </div>
+        </li>
+        `;
     });
-
 }
 
-function editNote(index){
+function editNote(index) {
+    const newText = prompt("Edit note:", notes[index].text);
 
-let text=prompt(
-"Edit note",
-notes[index].text
-);
+    if (newText && newText.trim() !== "") {
+        notes[index].text = newText;
+        notes[index].date = "Edited • " + new Date().toLocaleString();
 
-if(text!=null && text.trim()!=""){
+        saveNotes();
+        displayNotes();
+    }
+}
 
-notes[index].text=text;
-
-notes[index].date=
-"Edited • "+new Date().toLocaleString();
-
-saveNotes();
+function deleteNote(index) {
+    if (confirm("Delete this note?")) {
+        notes.splice(index, 1);
+        saveNotes();
+        displayNotes();
+    }
+}
 
 displayNotes();
-
-}
-
-}
-
-function deleteNote(index){
-
-if(confirm("Delete this note?")){
-
-notes.splice(index,1);
-
-saveNotes();
-
-displayNotes();
-
-}
-
-}
