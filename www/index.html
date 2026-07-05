@@ -1,34 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Notes</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Notes</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="container">
+<div id="lockScreen" class="lock-screen">
+    <h2>🔒 My Notes</h2>
 
-    <div class="top-bar">
-        <h1>📝 My Notes</h1>
-        <button id="darkBtn" onclick="toggleDarkMode()">🌙</button>
-    </div>
+    <p>Enter PIN</p>
 
-    <input
-        type="text"
-        id="searchInput"
-        placeholder="🔍 Search notes..."
-        onkeyup="displayNotes()">
+    <input type="password" maxlength="4" id="pinInput" placeholder="****">
 
-    <input
-        type="text"
-        id="noteInput"
-        placeholder="Write a note...">
+    <button onclick="unlockApp()">Unlock</button>
 
-    <button onclick="addNote()">Add Note</button>
+    <button onclick="setPin()">Set New PIN</button>
+</div>
 
-    <ul id="notesList"></ul>
+<div class="container" id="app">
+
+<div class="header">
+
+<h1>📝 My Notes</h1>
+
+<button class="dark-btn" onclick="toggleDarkMode()">🌙</button>
+
+</div>
+
+<input
+id="searchInput"
+type="text"
+placeholder="🔍 Search notes..."
+onkeyup="displayNotes()">
+
+<div class="toolbar">
+
+<select id="labelColor">
+
+<option value="#ffffff">⚪ White</option>
+
+<option value="#fff176">🟡 Yellow</option>
+
+<option value="#81d4fa">🔵 Blue</option>
+
+<option value="#a5d6a7">🟢 Green</option>
+
+<option value="#ef9a9a">🔴 Red</option>
+
+<option value="#ce93d8">🟣 Purple</option>
+
+</select>
+
+<button onclick="backupNotes()">⬆ Backup</button>
+
+<button onclick="restoreNotes()">⬇ Restore</button>
+
+</div>
+
+<input
+id="noteInput"
+type="text"
+placeholder="Write your note...">
+
+<button class="add-btn"
+onclick="addNote()">
+
+➕ Add Note
+
+</button>
+
+<ul id="notesList"></ul>
 
 </div>
 
