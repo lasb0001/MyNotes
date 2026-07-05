@@ -12,7 +12,12 @@ function displayNotes() {
         const li = document.createElement("li");
 
         li.innerHTML = `
-            <span>${note}</span>
+            <div style="flex:1">
+                <strong>${note.text}</strong><br>
+                <small>${note.date}</small>
+            </div>
+
+            <button onclick="editNote(${index})">✏️</button>
             <button class="delete" onclick="deleteNote(${index})">Delete</button>
         `;
 
@@ -23,12 +28,12 @@ function displayNotes() {
 function addNote() {
     const input = document.getElementById("noteInput");
 
-    if (input.value.trim() === "") {
-        alert("Please enter a note.");
-        return;
-    }
+    if (input.value.trim() === "") return;
 
-    notes.push(input.value);
+    notes.push({
+        text: input.value,
+        date: new Date().toLocaleString()
+    });
 
     input.value = "";
 
@@ -36,8 +41,21 @@ function addNote() {
     displayNotes();
 }
 
+function editNote(index) {
+    let newText = prompt("Edit your note:", notes[index].text);
+
+    if (newText !== null && newText.trim() !== "") {
+        notes[index].text = newText;
+        notes[index].date = "Edited: " + new Date().toLocaleString();
+
+        saveNotes();
+        displayNotes();
+    }
+}
+
 function deleteNote(index) {
-    notes.splice(index, 1);
+    notes.splice(index,1);
+
     saveNotes();
     displayNotes();
 }
