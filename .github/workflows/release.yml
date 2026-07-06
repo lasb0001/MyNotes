@@ -53,3 +53,4 @@ jobs:
         with:
           name: signed-release-apk
           path: android/app/build/outputs/apk/release/*.apk
+
