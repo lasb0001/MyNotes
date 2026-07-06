@@ -1,3 +1,5 @@
+import { AdMob, BannerAdPosition, BannerAdSize } from '@capacitor-community/admob';
+
 let notes = JSON.parse(localStorage.getItem("notes")) || [];
 
 const notesList = document.getElementById("notesList");
@@ -234,8 +236,7 @@ pinBtn.onclick = function () {
 
             }
 
-        }
-
+        
     }
 
 };

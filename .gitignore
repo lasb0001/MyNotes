@@ -1,0 +1,13 @@
+# Keystore
+*.jks
+*.keystore
+
+# Signing config
+android/key.properties
+
+# Node modules
+node_modules/
+
+# Build outputs
+android/app/build/
+android/build/
