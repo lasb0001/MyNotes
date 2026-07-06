@@ -228,13 +228,14 @@ pinBtn.onclick = function () {
 
                 alert("PIN removed.");
 
-            } else {
+	} else {
 
                 alert("Incorrect PIN.");
 
             }
 
-        
+        }
+
     }
 
 };
