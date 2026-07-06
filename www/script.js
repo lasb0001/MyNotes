@@ -256,3 +256,16 @@ window.addEventListener("load", function () {
     }
 
 });
+document.addEventListener("deviceready", function () {
+    console.log("Device ready");
+
+    console.log("Cordova:", typeof cordova);
+    console.log("AdMob:", typeof admob);
+
+    if (typeof admob === "undefined") {
+        alert("AdMob plugin not loaded.");
+        return;
+    }
+
+    alert("AdMob plugin loaded successfully!");
+});
